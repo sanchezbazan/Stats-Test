@@ -1,8 +1,13 @@
+from typing import List
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = NotImplemented
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = List[str] = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS: List[str] = []
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,6 +46,7 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'stats_core.project.asgi.application'
 WSGI_APPLICATION = 'stats_core.project.wsgi.application'
 
 # Database
@@ -55,7 +61,13 @@ DATABASES = {
         'HOST': 'localhost',
         'port': '5432',
         'ATOMIC_REQUESTS': True,
-        'CONN_MAX_AGE': 600,
+        # TODO(dmu) MEDIUM: Unfortunately Daphne / ASGI / Django Channels do not properly reuse database connections
+        #                   and therefore we are getting resource (connection) leak that leads to the following:
+        #                   django.db.utils.OperationalError: FATAL:  sorry, too many clients already
+        #                   `'CONN_MAX_AGE': 0` is used as workaround. In case it notably affects performance
+        #                   implement a solution that either closes database connections on WebSocket client
+        #                   disconnect and implement connection pooling outside Django (BgBouncer or similar)
+        'CONN_MAX_AGE': 0,
     }
 }
 
@@ -92,6 +104,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # type: ignore # noqa: F821
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
