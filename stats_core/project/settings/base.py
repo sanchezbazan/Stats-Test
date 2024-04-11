@@ -1,12 +1,10 @@
-from typing import List
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = NotImplemented
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = List[str] = ['*']
+ALLOWED_HOSTS = []
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS: List[str] = []
+CSRF_TRUSTED_ORIGINS = ['https://cosmicboards.com', 'https://www.cosmicboards.com']
 
 # Application definition
 INSTALLED_APPS = [
