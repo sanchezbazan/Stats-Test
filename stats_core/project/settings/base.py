@@ -4,7 +4,6 @@ SECRET_KEY = NotImplemented
 DEBUG = False
 ALLOWED_HOSTS = []
 CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = ['https://cosmicboards.com', 'https://www.cosmicboards.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -59,13 +58,7 @@ DATABASES = {
         'HOST': 'localhost',
         'port': '5432',
         'ATOMIC_REQUESTS': True,
-        # TODO(dmu) MEDIUM: Unfortunately Daphne / ASGI / Django Channels do not properly reuse database connections
-        #                   and therefore we are getting resource (connection) leak that leads to the following:
-        #                   django.db.utils.OperationalError: FATAL:  sorry, too many clients already
-        #                   `'CONN_MAX_AGE': 0` is used as workaround. In case it notably affects performance
-        #                   implement a solution that either closes database connections on WebSocket client
-        #                   disconnect and implement connection pooling outside Django (BgBouncer or similar)
-        'CONN_MAX_AGE': 0,
+        'CONN_MAX_AGE': 600,
     }
 }
 
@@ -102,7 +95,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # type: ignore # noqa: F821
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
