@@ -9,6 +9,7 @@ packages = [{include="stats_core"}]
 
 [tool.poetry.dependencies]
 boto3 = "^1.26.137"
+channels = {extras = ["daphne"], version = "^4.0.0"}
 django = "^4.2"
 django-cors-headers = "^3.14.0"
 django-filter = "^23.2"
