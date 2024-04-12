@@ -8,9 +8,9 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_DB: stats_core
-      POSTGRES_USER: stats_core
-      POSTGRES_PASSWORD: stats_core
+      POSTGRES_DB: stats_test
+      POSTGRES_USER: stats_test
+      POSTGRES_PASSWORD: stats_test
     volumes:
       - postgresql-data:/var/lib/postgresql/data
 
