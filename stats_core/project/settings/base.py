@@ -69,10 +69,10 @@ WSGI_APPLICATION = 'stats_core.project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'stats_test',
-        'USER': 'stats_test',
-        'PASSWORD': 'stats_test',
-        'HOST': 'localhost',
+        'NAME': 'stats_core',
+        'USER': 'stats_core',
+        'PASSWORD': 'stats_core',
+        'HOST': 'db',
         'port': '5432',
         'ATOMIC_REQUESTS': True,
         'CONN_MAX_AGE': 0,

@@ -9,9 +9,9 @@ services:
       - '5432:5432'
 
     environment:
-      POSTGRES_DB: stats_test # name on base.py
-      POSTGRES_USER: stats_test
-      POSTGRES_PASSWORD: stats_test
+      POSTGRES_DB: stats_core # name on base.py
+      POSTGRES_USER: stats_core
+      POSTGRES_PASSWORD: stats_core
     volumes:
       - postgresql-data:/var/lib/postgresql/data
 
