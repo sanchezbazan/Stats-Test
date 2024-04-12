@@ -1,9 +1,15 @@
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = NotImplemented
-# SECURITY WARNING: don't run with debug turned on in production!
+from typing import List
+
 DEBUG = False
-ALLOWED_HOSTS = []
+SECRET_KEY = NotImplemented
+
+ALLOWED_HOSTS: List[str] = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS: List[str] = []
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -13,6 +19,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third party
+    'corsheaders',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'django_filters',
+    'debug_toolbar',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +72,7 @@ DATABASES = {
         'HOST': 'localhost',
         'port': '5432',
         'ATOMIC_REQUESTS': True,
-        'CONN_MAX_AGE': 600,
+        'CONN_MAX_AGE': 0,
     }
 }
 
