@@ -23,7 +23,7 @@ class CustomEncoder(json.JSONEncoder):
         return super().default(obj)
 
 
-def bytes_to_hex(bytes_: bytes) -> hexstr:
+def bytes_to_hex(bytes_: bytes) -> hexstr:  # type: ignore
     return hexstr(bytes(bytes_).hex())
 
 
@@ -39,7 +39,7 @@ def generate_key_pair() -> KeyPair:
     )
 
 
-def hex_to_bytes(hex_string: hexstr) -> bytes:
+def hex_to_bytes(hex_string: hexstr) -> bytes:  # type: ignore
     return bytes.fromhex(hex_string)
 
 

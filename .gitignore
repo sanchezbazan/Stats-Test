@@ -1,17 +1,5 @@
-# Django
-*.log
-*.pot
-*.pyc
-__pycache__
-db.sqlite3
-media
-
 # Backup files
 *.bak
-
-# Python
-*.py[cod]
-*$py.class
 
 # Distribution / packaging
 *.egg
@@ -32,9 +20,47 @@ sdist/
 var/
 wheels/
 
+# Django
+*.log
+*.pot
+*.pyc
+/staticfiles
+__pycache__
+db.sqlite3
+media
+
+# Environments
+.venv
+/.env
+/local
+ENV/
+env.bak/
+env/
+venv
+venv.bak/
+venv/
+
+# IDEs
+.DS_Store
+.idea
+.vscode
+
 # Installer logs
 pip-delete-this-directory.txt
 pip-log.txt
+
+# mypy
+.mypy_cache
+
+# pyenv
+.python-version
+
+# pytest
+.pytest_cache
+
+# Python
+*$py.class
+*.py[cod]
 
 # Unit test / coverage reports
 *.cover
@@ -47,29 +73,3 @@ pip-log.txt
 coverage.xml
 htmlcov/
 nosetests.xml
-
-# pyenv
-.python-version
-
-# pytest
-.pytest_cache
-
-# Environments
-/local
-/.env
-.venv
-ENV/
-env.bak/
-env/
-venv
-venv.bak/
-venv/
-
-# Misc
-.mypy_cache
-/staticfiles
-
-# IDEs
-.DS_Store
-.idea
-.vscode

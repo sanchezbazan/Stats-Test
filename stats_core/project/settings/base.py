@@ -28,6 +28,11 @@ INSTALLED_APPS = [
     'django_filters',
     'debug_toolbar',
     'storages',
+
+    # Apps
+    'stats_core.accounts.apps.AccountsConfig',
+    'stats_core.blocks.apps.BlocksConfig',
+    'stats_core.config.apps.SettingsConfig',
 ]
 
 MIDDLEWARE = [
@@ -72,7 +77,7 @@ DATABASES = {
         'NAME': 'stats_core',
         'USER': 'stats_core',
         'PASSWORD': 'stats_core',
-        'HOST': 'db',
+        'HOST': 'localhost',
         'port': '5432',
         'ATOMIC_REQUESTS': True,
         'CONN_MAX_AGE': 0,
@@ -81,6 +86,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'accounts.Account'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -108,6 +115,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'  # type: ignore # noqa: F821
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -116,5 +126,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'  # type: ignore # noqa: F821
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10MB
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

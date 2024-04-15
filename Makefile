@@ -31,6 +31,10 @@ shell:
 superuser:
 	poetry run python3 -m stats_core.manage createsuperuser
 
+.PHONY: test
+test:
+	poetry run pytest -v -rs -n auto --show-capture=no
+
 .PHONY: up-dependencies-only
 up-dependencies-only:
 	test -f .env || touch .env
