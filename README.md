@@ -1,7 +1,6 @@
 Project Setup
 ====================
 
-1. Create a folder
 2. Create an environment
 3. start django-admin startproject project .
 4. Do .gitignore
