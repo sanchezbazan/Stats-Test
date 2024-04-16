@@ -1,11 +1,10 @@
-from custom_logging import LOGGING
-
 DEBUG = True
 
-LOGGING['formatters']['colored'] = {  # type: ignore
+MIDDLEWARE += ('core.core.middleware.LoggingMiddleware',)  # type: ignore # noqa: F821
+LOGGING['formatters']['colored'] = {  # type: ignore # noqa: F821
     '()': 'colorlog.ColoredFormatter',
     'format': '%(log_color)s%(asctime)s %(levelname)s %(name)s %(bold_green)s%(message)s',
 }
-LOGGING['loggers']['stats_core']['level'] = 'DEBUG'  # type: ignore
-LOGGING['handlers']['console']['level'] = 'DEBUG'  # type: ignore
-LOGGING['handlers']['console']['formatter'] = 'colored'  # type: ignore
+LOGGING['loggers']['stats_core']['level'] = 'DEBUG'  # type: ignore # noqa: F821
+LOGGING['handlers']['console']['level'] = 'DEBUG'  # type: ignore # noqa: F821
+LOGGING['handlers']['console']['formatter'] = 'colored'  # type: ignore # noqa: F821
