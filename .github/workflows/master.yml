@@ -3,10 +3,10 @@ name: Continuous Integration
 on:
   push:
     branches:
-      - main
+      - main  # Change this to your main branch name
 
 concurrency:
-  group: master
+  group: main  # Change this to match your main branch name
   cancel-in-progress: true
 
 jobs:
@@ -19,32 +19,31 @@ jobs:
     needs: quality-assurance
     runs-on: ubuntu-latest
     steps:
-      - name: Debug SSH Setup
-        run: |
-          ls -al ~/.ssh/
-          cat ~/.ssh/config
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/github
-          chmod 600 ~/.ssh/github
-          ls -al ~/.ssh/github
-          stat ~/.ssh/config  # Check file permissions
-
-      - name: Configure SSH
+      - name: Create SSH Directory and Configure SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
         run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/github
-          chmod 600 ~/.ssh/github
-          cat >>~/.ssh/config <<END
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+          cat > ~/.ssh/config <<EOF
           Host target
             HostName $SSH_HOST
             User $SSH_USER
-            IdentityFile ~/.ssh/github
+            IdentityFile ~/.ssh/id_rsa
             LogLevel ERROR
             StrictHostKeyChecking no
-          END
+          EOF
+
+      - name: Verify SSH Configuration
+        run: |
+          ls -al ~/.ssh
+          cat ~/.ssh/config
+          ssh -T target  # Test SSH connection to target
+
       - name: Run deploy
         run: |
           ssh target "cd Stats-Test/ && docker-compose down && git pull && docker-compose build && docker-compose up -d --force-recreate"
