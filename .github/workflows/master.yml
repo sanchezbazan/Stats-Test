@@ -19,6 +19,15 @@ jobs:
     needs: quality-assurance
     runs-on: ubuntu-latest
     steps:
+      - name: Debug SSH Setup
+        run: |
+          ls -al ~/.ssh/
+          cat ~/.ssh/config
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/github
+          chmod 600 ~/.ssh/github
+          ls -al ~/.ssh/github
+          stat ~/.ssh/config  # Check file permissions
+
       - name: Configure SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
