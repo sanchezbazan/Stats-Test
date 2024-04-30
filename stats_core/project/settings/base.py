@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'stats_core.accounts.apps.AccountsConfig',
     'stats_core.blocks.apps.BlocksConfig',
     'stats_core.config.apps.SettingsConfig',
+    'stats_core.comments.apps.CommentsConfig',
+    'stats_core.recipes.apps.RecipesConfig',
 ]
 
 MIDDLEWARE = [
